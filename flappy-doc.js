@@ -57,9 +57,27 @@ const flappyDoc = {
     },
 };
 
+const getReady = {
+    sourceX: 134,
+    sourceY: 0,
+    width: 174,
+    height: 152,
+    x: (canvas.width / 2) - (174 / 2),
+    y: 50,
+    draw() {
+        context.drawImage(
+            sprites,
+            getReady.sourceX, getReady.sourceY,
+            getReady.width, getReady.height,
+            getReady.x, getReady.y,
+            getReady.width,getReady.height
+        );
+    }
+}
+
 const ground = {
-    spriteX: 0,
-    spriteY: 610,
+    sourceX: 0,
+    sourceY: 610,
     width: 224,
     height: 112,
     x: 0,
@@ -67,7 +85,7 @@ const ground = {
     draw() {
         context.drawImage(
             sprites,
-            ground.spriteX, ground.spriteY,
+            ground.sourceX, ground.sourceY,
             ground.width, ground.height,
             ground.x,ground.y,
             ground.width,ground.height,
@@ -75,7 +93,7 @@ const ground = {
 
         context.drawImage(
             sprites,
-            ground.spriteX, ground.spriteY,
+            ground.sourceX, ground.sourceY,
             ground.width, ground.height,
             ground.x + ground.width, ground.y,
             ground.width, ground.height,
@@ -83,14 +101,52 @@ const ground = {
     },
 }
 
+let activeScreen = {}
+
+function setActiveScreen(screen) {
+    activeScreen = screen;
+}
+
+const Screens = {
+    start: {
+        click() {
+          setActiveScreen(Screens.game);  
+        },
+        draw() {
+            background.draw();
+            ground.draw();
+            flappyDoc.draw();
+            getReady.draw();
+        },
+        refresh() {
+
+        }
+    }
+}
+
+Screens.game = {
+    draw() {
+        background.draw();
+        ground.draw();
+        flappyDoc.draw();
+    },
+    refresh() {
+        flappyDoc.refresh();
+    }
+}
+
 function loop() {
-    background.draw();
-    ground.draw();
-    flappyDoc.refresh();
-    flappyDoc.draw();
-    
+    activeScreen.draw();
+    activeScreen.refresh();
 
     requestAnimationFrame(loop);
 }
 
+window.addEventListener('click', function() {
+    if(activeScreen.click) {
+        activeScreen.click();
+    }
+});
+
+setActiveScreen(Screens.start);
 loop();
