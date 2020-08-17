@@ -324,5 +324,11 @@ window.addEventListener('click', function() {
     }
 });
 
+window.addEventListener('touchstart', function() {
+    if(activeScreen.touched) {
+        activeScreen.click();
+    }
+});
+
 setActiveScreen(Screens.start);
 loop();
