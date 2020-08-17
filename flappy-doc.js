@@ -16,7 +16,7 @@ const scoreEffect = new Audio();
 scoreEffect.src = './effects/score.wav';
 
 const canvas = document.querySelector('canvas');
-const context = canvas.getContext('2d');
+const context = canvas.getContext('webgl');
 
 const globals = {}
 
