@@ -199,7 +199,7 @@ function pipes() {
                     return true;
                 }
             }
-            scoreEffect.play();
+
             return false;
         },
         draw() {
