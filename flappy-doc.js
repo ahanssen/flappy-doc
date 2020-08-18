@@ -1,4 +1,5 @@
 let frames = 0;
+let score = 0;
 
 const sprites = new Image();
 sprites.src = './sprites.png';
@@ -116,6 +117,7 @@ function flappyDoc() {
         },
         jump() {
             flappyDoc.speed =- flappyDoc.boost;
+            jumpEffect.play();
         },
         refresh() {
             if(bump(flappyDoc, globals.ground)) {
@@ -188,14 +190,16 @@ function pipes() {
 
             if(globals.flappyDoc.x >= pipe.x) {
                 if(flappyDocTop <= pipe.skyPipe.y) {
+                    downEffect.play();
                     return true;
                 }
     
                 if(flappyDocBottom >= pipe.groundPipe.y) {
+                    downEffect.play();
                     return true;
                 }
             }
-            
+            scoreEffect.play();
             return false;
         },
         draw() {
