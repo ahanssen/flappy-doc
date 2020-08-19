@@ -123,7 +123,7 @@ function flappyDoc() {
             if(bump(flappyDoc, globals.ground)) {
                 hitEffect.play();
                 setTimeout(() => {
-                    setActiveScreen(Screens.start);
+                    setActiveScreen(Screens.gameover);
                 }, 500);
                 return;
             }
@@ -255,7 +255,7 @@ function pipes() {
                 pipe.x = pipe.x - 2;
 
                 if(pipes.bumpToFlappyDoc(pipe)) {
-                    setActiveScreen(Screens.start);
+                    setActiveScreen(Screens.gameover);
                 }
 
                 if(pipe.x + pipes.width <= 0) {
@@ -270,13 +270,31 @@ function pipes() {
     return pipes;
 }
 
+const gameOverMessage = {
+    sourceX: 132,
+    sourceY: 154,
+    width: 228,
+    height: 200,
+    x: 46,
+    y: 100,
+    draw() {
+        context.drawImage(
+            sprites,
+            gameOverMessage.sourceX, gameOverMessage.sourceY,
+            gameOverMessage.width, gameOverMessage.height,
+            gameOverMessage.x, gameOverMessage.y,
+            gameOverMessage.width,gameOverMessage.height
+        );
+    }
+}
+
 function scoreDisplay() {
     const scoreDisplay = {
         draw() {
             const scoreText = 'Score: ' + score;
-            context.font = 'bold 8px sans-serif';
-            context.fillText(scoreText, 5, canvas.height - 100, 400);
-            console.log(scoreText);
+            context.fillStyle = '#000';
+            context.font = 'bold 14px sans-serif';
+            context.fillText(scoreText, 5, canvas.height - 80, 400);
         }
     }
     return scoreDisplay;
@@ -300,7 +318,7 @@ const Screens = {
         },
         click() {
           setActiveScreen(Screens.game);
-          score = 0; 
+          score = 0;
         },
         draw() {
             background.draw();
@@ -327,9 +345,31 @@ Screens.game = {
     },
     refresh() {
         globals.pipes.refresh();
+        globals.ground.animate();
         globals.flappyDoc.refresh();
         globals.scoreDisplay.draw();
     }
+}
+
+Screens.gameover = {
+    click() {
+        globals.flappyDoc = flappyDoc();
+        globals.ground = ground();
+        globals.pipes = pipes();
+        globals.scoreDisplay = scoreDisplay();
+        setActiveScreen(Screens.game);
+        score = 0;
+    },
+    draw() {
+        background.draw();
+        globals.pipes.draw();
+        globals.ground.draw();
+        globals.flappyDoc.draw();
+        globals.scoreDisplay.draw();
+        gameOverMessage.draw();
+    },
+    refresh() {}
+
 }
 
 function loop() {
