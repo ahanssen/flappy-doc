@@ -260,12 +260,26 @@ function pipes() {
 
                 if(pipe.x + pipes.width <= 0) {
                     pipes.doublePipes.shift();
+                    score++;
+                    scoreEffect.play();
                 }
             });
 
         }
     }
     return pipes;
+}
+
+function scoreDisplay() {
+    const scoreDisplay = {
+        draw() {
+            const scoreText = 'Score: ' + score;
+            context.font = 'bold 8px sans-serif';
+            context.fillText(scoreText, 5, canvas.height - 100, 400);
+            console.log(scoreText);
+        }
+    }
+    return scoreDisplay;
 }
 
 function setActiveScreen(screen) {
@@ -282,9 +296,11 @@ const Screens = {
             globals.flappyDoc = flappyDoc();
             globals.ground = ground();
             globals.pipes = pipes();
+            globals.scoreDisplay = scoreDisplay();
         },
         click() {
-          setActiveScreen(Screens.game);  
+          setActiveScreen(Screens.game);
+          score = 0; 
         },
         draw() {
             background.draw();
@@ -307,10 +323,12 @@ Screens.game = {
         globals.pipes.draw();
         globals.ground.draw();
         globals.flappyDoc.draw();
+        globals.scoreDisplay.draw();
     },
     refresh() {
         globals.pipes.refresh();
         globals.flappyDoc.refresh();
+        globals.scoreDisplay.draw();
     }
 }
 
