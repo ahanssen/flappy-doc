@@ -277,18 +277,14 @@ function pipes() {
 function medal () {
     let medal = {
         getColor() {
-            switch (score) {
-                case score >= 5 && score < 10:
-                    return { sourceX: 45, sourceY: 123 };
-        
-                case score >= 10 && score < 20:
-                    return silver = { sourceX: 45, sourceY: 78 };
-        
-                case score >= 20:
-                    return { sourceX: 0, sourceY: 123 };
-                
-                default:
-                    return { sourceX: 0, sourceY: 78 };
+            if (score < 5) {
+                return { sourceX: 0, sourceY: 78 };
+            } else if (score >= 5 && score < 10) {
+                return { sourceX: 45, sourceY: 123 };
+            } else if (score >= 10 && score < 20) {
+                return { sourceX: 45, sourceY: 78 };
+            } else {
+                return { sourceX: 0, sourceY: 123 };
             }
         },
         width: 46,
@@ -403,11 +399,15 @@ Screens.game = {
 }
 
 Screens.gameover = {
+    init() {
+        globals.medal = medal();
+    },
     click() {
         globals.flappyDoc = flappyDoc();
         globals.ground = ground();
         globals.pipes = pipes();
         globals.scoreDisplay = scoreDisplay();
+        globals.medal = undefined;
         setActiveScreen(Screens.game);
         score = 0;
     },
@@ -418,7 +418,7 @@ Screens.gameover = {
         globals.flappyDoc.draw();
         globals.scoreDisplay.draw();
         gameOverMessage.draw();
-        medal().draw();
+        globals.medal.draw();
         globals.finalScore.draw();
     },
     refresh() {}
