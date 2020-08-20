@@ -1,5 +1,6 @@
 let frames = 0;
 let score = 0;
+let bestScore = 0;
 
 const sprites = new Image();
 sprites.src = './sprites.png';
@@ -261,6 +262,9 @@ function pipes() {
                 if(pipe.x + pipes.width <= 0) {
                     pipes.doublePipes.shift();
                     score++;
+                    if (bestScore < score) {
+                        bestScore = score;
+                    }
                     scoreEffect.play();
                 }
             });
@@ -268,6 +272,40 @@ function pipes() {
         }
     }
     return pipes;
+}
+
+function medal () {
+    const medal = {
+        getColor() {
+            switch (this.score) {
+                case this.score >= 10 && this.score < 20:
+                    return { sourceX: 45, sourceY: 123 };
+        
+                case this.score >= 2 && this.score < 3:
+                    return silver = { sourceX: 45, sourceY: 0 };
+        
+                case this.score >= 3:
+                    return { sourceX: 0, sourceY: 123 };
+                
+                default:
+                    return { sourceX: 0, sourceY: 78 };
+            }
+        },
+        width: 45,
+        height: 45,
+        x: 75,
+        y: 185,
+        draw() {
+            context.drawImage(
+                sprites,
+                medal.getColor().sourceX, medal.getColor().sourceY,
+                medal.width, medal.height,
+                medal.x, medal.y,
+                medal.width,medal.height
+            );
+        }
+    }
+    return medal;
 }
 
 const gameOverMessage = {
@@ -293,8 +331,20 @@ function scoreDisplay() {
         draw() {
             const scoreText = 'Score: ' + score;
             context.fillStyle = '#000';
-            context.font = 'bold 14px sans-serif';
-            context.fillText(scoreText, 5, canvas.height - 80, 400);
+            context.font = 'bold 16px sans-serif';
+            context.fillText(scoreText, 10, 25, 400);
+        }
+    }
+    return scoreDisplay;
+}
+
+function finalScore() {
+    const scoreDisplay = {
+        draw() {
+            context.fillStyle = '#000';
+            context.font = 'bold 16px sans-serif';
+            context.fillText(score, 225, 190, 50);
+            context.fillText(bestScore, 225, 230, 50);
         }
     }
     return scoreDisplay;
@@ -315,6 +365,7 @@ const Screens = {
             globals.ground = ground();
             globals.pipes = pipes();
             globals.scoreDisplay = scoreDisplay();
+            globals.finalScore = finalScore();
         },
         click() {
           setActiveScreen(Screens.game);
@@ -352,6 +403,9 @@ Screens.game = {
 }
 
 Screens.gameover = {
+    init() {
+        globals.medal = medal();
+    },
     click() {
         globals.flappyDoc = flappyDoc();
         globals.ground = ground();
@@ -367,6 +421,8 @@ Screens.gameover = {
         globals.flappyDoc.draw();
         globals.scoreDisplay.draw();
         gameOverMessage.draw();
+        globals.medal.draw();
+        globals.finalScore.draw();
     },
     refresh() {}
 
