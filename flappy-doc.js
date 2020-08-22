@@ -440,6 +440,10 @@ window.addEventListener('click', function() {
     }
 });
 
+window.addEventListener('touchstart', function() {
+    activeScreen.click();
+});
+
 
 setActiveScreen(Screens.start);
 loop();
