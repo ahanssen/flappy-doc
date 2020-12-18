@@ -189,7 +189,7 @@ function pipes() {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
 
-            if(globals.flappyDoc.x >= pipe.x) {
+            if(globals.flappyDoc.x + globals.flappyDoc.width >= pipe.x) {
                 if(flappyDocTop <= pipe.skyPipe.y) {
                     downEffect.play();
                     return true;
@@ -304,11 +304,29 @@ function medal () {
     return medal;
 }
 
+const startButton = {
+    sourceX: 205,
+    sourceY: 325,
+    width: 104,
+    height: 56,
+    x: 120,
+    y: 280,
+    draw() {
+        context.drawImage(
+            sprites,
+            startButton.sourceX, startButton.sourceY,
+            startButton.width, startButton.height,
+            startButton.x, startButton.y,
+            startButton.width,startButton.height
+        );
+    }
+}
+
 const gameOverMessage = {
     sourceX: 132,
     sourceY: 154,
     width: 228,
-    height: 200,
+    height: 160,
     x: 46,
     y: 100,
     draw() {
@@ -418,6 +436,7 @@ Screens.gameover = {
         globals.flappyDoc.draw();
         globals.scoreDisplay.draw();
         gameOverMessage.draw();
+        startButton.draw();
         globals.medal.draw();
         globals.finalScore.draw();
     },
