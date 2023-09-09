@@ -184,7 +184,7 @@ function pipes() {
             sourceX: 52,
             sourceY: 169,
         },
-        gap: 80,
+        gap: 100,
         bumpToFlappyDoc(pipe) {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
@@ -206,7 +206,7 @@ function pipes() {
         draw() {
             pipes.doublePipes.forEach(function(pipe) {
                 const yRandom = pipe.y;
-                const verticalGap = 90;
+                const verticalGap = 100;
 
                 const skyPipeX = pipe.x;
                 const skyPipeY = yRandom;
