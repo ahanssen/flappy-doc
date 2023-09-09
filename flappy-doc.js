@@ -86,8 +86,8 @@ function flappyDoc() {
         height: 24,
         x: 10,
         y: 50,
-        gravity: 0.25,
-        boost: 4.6,
+        gravity: 0.35,
+        boost: 4.8,
         speed: 0,
         flapping: [
             { sourceX: 0, sourceY: 0 },
