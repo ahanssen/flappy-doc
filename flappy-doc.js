@@ -178,13 +178,13 @@ function pipes() {
         height: 400,
         ground: {
             sourceX: 0,
-            sourceY: 69,
+            sourceY: 169,
         },
         sky: {
             sourceX: 52,
-            sourceY: 269,
+            sourceY: 169,
         },
-        gap: 500,
+        gap: 150,
         bumpToFlappyDoc(pipe) {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
@@ -220,7 +220,7 @@ function pipes() {
                 );
     
                 const groundPipeX = pipe.x;
-                const groundPipeY = pipes.height + verticalGap + yRandom;
+                const groundPipeY = pipes.height - verticalGap + yRandom;
 
                 context.drawImage(
                     sprites,
