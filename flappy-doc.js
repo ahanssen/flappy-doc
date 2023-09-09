@@ -82,8 +82,8 @@ function flappyDoc() {
     const flappyDoc = {
         sourceX: 0,
         sourceY: 0,
-        width: 32,
-        height: 23,
+        width: 33,
+        height: 24,
         x: 10,
         y: 50,
         gravity: 0.35,
@@ -175,16 +175,16 @@ function ground() {
 function pipes() {
     const pipes = {
         width: 52,
-        height: 400,
+        height: 450,
         ground: {
             sourceX: 0,
-            sourceY: 169,
+            sourceY: 269,
         },
         sky: {
             sourceX: 52,
             sourceY: 169,
         },
-        gap: 150,
+        gap: 200,
         bumpToFlappyDoc(pipe) {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
