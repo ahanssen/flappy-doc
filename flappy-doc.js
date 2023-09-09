@@ -206,7 +206,7 @@ function pipes() {
         draw() {
             pipes.doublePipes.forEach(function(pipe) {
                 const yRandom = pipe.y;
-                const verticalGap = 500;
+                const verticalGap = 0;
 
                 const skyPipeX = pipe.x;
                 const skyPipeY = yRandom;
@@ -220,7 +220,7 @@ function pipes() {
                 );
     
                 const groundPipeX = pipe.x;
-                const groundPipeY = pipes.height - verticalGap + yRandom;
+                const groundPipeY = pipes.height + verticalGap + yRandom;
 
                 context.drawImage(
                     sprites,
