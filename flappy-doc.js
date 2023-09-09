@@ -206,7 +206,7 @@ function pipes() {
         draw() {
             pipes.doublePipes.forEach(function(pipe) {
                 const yRandom = pipe.y;
-                const verticalGap = 0;
+                const verticalGap = 250;
 
                 const skyPipeX = pipe.x;
                 const skyPipeY = yRandom;
@@ -232,7 +232,7 @@ function pipes() {
 
                 pipe.groundPipe = {
                     x: groundPipeX,
-                    y: groundPipeY
+                    y: groundPipeY + 100
                 }
 
                 pipe.skyPipe = {
