@@ -184,7 +184,7 @@ function pipes() {
             sourceX: 52,
             sourceY: 169,
         },
-        gap: 100,
+        gap: 150,
         bumpToFlappyDoc(pipe) {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
