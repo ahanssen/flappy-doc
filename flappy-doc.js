@@ -82,12 +82,12 @@ function flappyDoc() {
     const flappyDoc = {
         sourceX: 0,
         sourceY: 0,
-        width: 33,
-        height: 24,
+        width: 32,
+        height: 23,
         x: 10,
         y: 50,
         gravity: 0.35,
-        boost: 3.8,
+        boost: 1.8,
         speed: 0,
         flapping: [
             { sourceX: 0, sourceY: 0 },
@@ -178,13 +178,13 @@ function pipes() {
         height: 400,
         ground: {
             sourceX: 0,
-            sourceY: 269,
+            sourceY: 69,
         },
         sky: {
             sourceX: 52,
-            sourceY: 169,
+            sourceY: 269,
         },
-        gap: 50,
+        gap: 500,
         bumpToFlappyDoc(pipe) {
             const flappyDocTop = globals.flappyDoc.y;
             const flappyDocBottom = globals.flappyDoc.y + globals.flappyDoc.height;
@@ -206,7 +206,7 @@ function pipes() {
         draw() {
             pipes.doublePipes.forEach(function(pipe) {
                 const yRandom = pipe.y;
-                const verticalGap = 50;
+                const verticalGap = 500;
 
                 const skyPipeX = pipe.x;
                 const skyPipeY = yRandom;
